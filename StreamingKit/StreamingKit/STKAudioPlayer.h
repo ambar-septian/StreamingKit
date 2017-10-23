@@ -135,6 +135,8 @@ typedef void(^STKFrameFilter)(UInt32 channelsPerFrame, UInt32 bytesPerFrame, UIn
 /// Raised when items queued items are cleared (usually because of a call to play, setDataSource or stop)
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didCancelQueuedItems:(NSArray*)queuedItems;
 
+/// Raised when buffered queue will used
+-(void) didStartAvailableBufferingQueue;
 @end
 
 @interface STKAudioPlayer : NSObject<STKDataSourceDelegate>
@@ -268,6 +270,9 @@ typedef void(^STKFrameFilter)(UInt32 channelsPerFrame, UInt32 bytesPerFrame, UIn
 
 /// Sets the gain value (from -96 low to +24 high) for an equalizer band (0 based index)
 -(void) setGain:(float)gain forEqualizerBand:(int)bandIndex;
+
+// Force forward to next buffer queue, return true if available and current queue will be replace to next queue
+-(BOOL) forwardIfBufferAvailable;
 
 @end
 
